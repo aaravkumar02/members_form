@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #24345e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        fieldset {
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: calc(100% - 22px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #245580;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1c4274;
+        }
+
+        .thank-you-msg {
+            display: none;
+            background-color: #245580;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector("form").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent form submission
+                // Hide the form
+                document.querySelector("form").style.display = "none";
+                // Show the thank you message
+                document.querySelector(".thank-you-msg").style.display = "block";
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Welcome to Research & Innovation Club</h1>
+    <p>Please fill out this form with the required information</p>
+    <form method="post" name="google-sheet" >
+        <fieldset>
+            <label>1. Enter Your Full Name: <input type="text" name="full-name" required /></label>
+
+            <label>2. Enter Your Email: <input type="email" name="email" required /></label>
+
+            <label>3. What sparked your interest in research and innovation?
+                <textarea name="interest" rows="3" cols="30" placeholder="Enter your response here" required></textarea>
+            </label>
+            <label>4. Have you been involved in any research projects or innovative initiatives before?
+                <textarea name="experience" rows="3" cols="30" placeholder="Enter your response here"
+                    required></textarea>
+            </label>
+            <label>5. Are you open to learning new skills or techniques related to research and innovation?
+                <textarea name="skills" rows="3" cols="30" placeholder="Enter your response here" required></textarea>
+            </label>
+            <label>6. How do you envision contributing to the club's goals and projects?
+                <textarea name="contribution" rows="3" cols="30" placeholder="Enter your response here"
+                    required></textarea>
+            </label>
+            <label>7. How do you plan to balance your commitments to the club with your other academics?
+                <textarea name="passion" rows="3" cols="30" placeholder="Enter your response here" required></textarea>
+            </label>
+            <label>8. How can you follow up with the president, vice president, and other members?
+                <textarea name="follow" rows="3" cols="30" placeholder="Enter your response here" required></textarea>
+            </label>
+        </fieldset>
+        <fieldset>
+            <label><input type="checkbox" name="terms" class="inline" required /> I accept the <a href=" ">terms and
+                    conditions</a></label>
+        </fieldset>
+        <input type="submit" value="Submit" name="Submit"/>
+    </form>
+    <div class="thank-you-msg">Thank you! Your response has been recorded. We will contact you soon.</div>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyPZgBPyICryOKIMfMrfJQ5G61fkQEV5qbJgMoGCUrtA-JCKcPRuHwwWo4VE-02vs01/exec'
+        const form = document.forms['google-sheet']
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
+                .catch(error => console.error('Error!', error.message))
+        })
+    </script>
+
+</body>
+
+</html>
